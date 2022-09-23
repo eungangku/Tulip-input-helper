@@ -65,12 +65,12 @@ while True:
             author = json["authors"][0]
             publisher = json["publisher"]
             pubdate = json["publishedDate"][:4]
-        except:
-            print("Exception Occured")
+        except Exception as e:
+            print(e)
             pass
 
     try:
-        print(f"isbn: {isbn}")
+        print(f"\nisbn: {isbn}")
         print(f"가격: {org_price}")
         print(f"서명: {title}")
         print(f"저자: {author}")
