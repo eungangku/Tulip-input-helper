@@ -1,9 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+from requests.models import parse_header_links
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"}
 
 while True:
+    print()
     # ISBN input
     isbn_input = input(": ")
     dash_removed = isbn_input.replace("-", "")
@@ -51,17 +53,21 @@ while True:
         pubdate = pubdate_elem.get_text().strip()[:4]
 
     except:
-        print("parse from google book api")
-        res = requests.get(f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}&key=AIzaSyCj2KZ-x0mXxBGCfpX08HKS-bd13x9msKk")
-        res.raise_for_status()
+        try:
+            print("parse from google book api")
+            res = requests.get(f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}&key=AIzaSyCj2KZ-x0mXxBGCfpX08HKS-bd13x9msKk")
+            res.raise_for_status()
 
-        json = res.json()["items"][0]["volumeInfo"]
+            json = res.json()["items"][0]["volumeInfo"]
 
-        org_price = ""
-        title = json["title"]
-        author = json["authors"][0]
-        publisher = json["publisher"]
-        pubdate = json["publishedDate"][:4]
+            org_price = ""
+            title = json["title"]
+            author = json["authors"][0]
+            publisher = json["publisher"]
+            pubdate = json["publishedDate"][:4]
+        except:
+            print("Exception Occured")
+            pass
 
     print(f"isbn: {isbn}")
     print(f"가격: {org_price}")
