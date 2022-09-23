@@ -69,9 +69,12 @@ while True:
             print("Exception Occured")
             pass
 
-    print(f"isbn: {isbn}")
-    print(f"가격: {org_price}")
-    print(f"서명: {title}")
-    print(f"저자: {author}")
-    print(f"출판사: {publisher}")
-    print(f"출판년: {pubdate}")
+    try:
+        print(f"isbn: {isbn}")
+        print(f"가격: {org_price}")
+        print(f"서명: {title}")
+        print(f"저자: {author}")
+        print(f"출판사: {publisher}")
+        print(f"출판년: {pubdate}")
+    except Exception as e:
+        print(e)
