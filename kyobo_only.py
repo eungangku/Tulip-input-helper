@@ -76,5 +76,9 @@ while True:
         print(f"저자: {author}")
         print(f"출판사: {publisher}")
         print(f"출판년: {pubdate}")
+
+        information = [isbn, org_price, title, author, publisher, pubdate]
+        for item in information:
+            item = ""
     except Exception as e:
         print(e)
