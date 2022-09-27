@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from requests.models import parse_header_links
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"}
 
@@ -11,14 +10,12 @@ while True:
     dash_removed = isbn_input.replace("-", "")
     isbn_removed = dash_removed.replace("ISBN", "").replace("isbn", "")
 
-
     def cut_after_blank(string):
         try:
             idx = string.index(" ", 6)
             return string[:idx]
         except:
             return string
-
 
     cut_blank = cut_after_blank(isbn_removed)
     max_to_thirteen = cut_blank[:13]
