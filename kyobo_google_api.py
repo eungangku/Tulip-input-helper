@@ -29,13 +29,13 @@ while True:
         soup = BeautifulSoup(res.text, "lxml")
 
         # scrap data
-        org_price_elem = soup.find("span", attrs={"class": "org_price"})
+        org_price_elem = soup.find("span", attrs={"class": "sale_price"})
         org_price = org_price_elem.get_text().replace(",", "").replace("원", "").strip()
 
-        title_elem = soup.find("h1", attrs={"class": "title"}).find("strong")
+        title_elem = soup.find("span", attrs={"class": "prod_title"})
         title = title_elem.get_text().strip()
 
-        author_elem = soup.find("span", attrs={"class": "name"})
+        author_elem = soup.find("div", attrs={"class": "author"})
         author_atags = author_elem.find_all("a")
         authors = []
         for item in author_atags:
@@ -43,11 +43,12 @@ while True:
 
         author = ", ".join(authors)
 
-        publisher_elem = soup.find("span", attrs={"class": "name", "title": "출판사"})
+        publisher_elem = soup.find("a", attrs={"class": "btn_publish_link"})
         publisher = publisher_elem.get_text().strip()
 
-        pubdate_elem = soup.find("span", attrs={"class": "date"})
-        pubdate = pubdate_elem.get_text().strip()[:4]
+        pubdate_elem = soup.find("div", attrs={"class": "prod_info_text", "class": "publish_date"})
+        pubdate = pubdate_elem.get_text().replace(publisher, "").replace("·", "").strip()
+        pubdate = pubdate[:4]
 
     except:
         try:
